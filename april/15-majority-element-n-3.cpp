@@ -3,6 +3,7 @@ public:
     vector<int> majorityElement(vector<int>& nums) {
         int n=nums.size();
         vector<int> v;
+        //
         map<int,int> m;
         for(auto x:nums)
             m[x]++;
