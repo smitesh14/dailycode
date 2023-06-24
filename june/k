@@ -1,0 +1,42 @@
+class Solution {
+public:
+    vector<int> getAverages(vector<int>& nums, int k) {
+        if (k == 0)
+            return nums;
+        
+        // have: array of non-negative integers, plus a window size k
+        // want: array of integer averages of the k-sized window centered at the
+        // corresponding index of the array, using -1 if the window goes out
+        // of range
+        // input size: 1-10^5
+        // input domain: numbers are non-negative; k: 0-10^5
+        // (0 means only the current element)
+        // approach:
+        // - single-pass; accumulate window total and track size
+        // - need to use uint64_t for total so we don't get overflow
+        size_t count = nums.size();
+        vector<int> averages(count);
+        uint64_t total = 0;
+        uint64_t windowSize = 1 + k * 2;
+        size_t index = 0;
+        size_t firstIndexToSet = min(static_cast<size_t>(k), count);
+        size_t endIndexToSet = max(count, static_cast<size_t>(k)) - k;
+        for (; index < firstIndexToSet; ++index) {
+            total += nums[index];
+            averages[index] = -1;
+        }
+        for (; index < min(windowSize - 1, count - 1); ++index) {
+            total += nums[index];
+        }
+        for (index = firstIndexToSet; index < endIndexToSet; ++index) {
+            // add final element of window
+            total += nums[index + k];
+            averages[index] = total / windowSize;
+            // remove first element of window
+            total -= nums[index - k];
+        }
+        for (; index < count; ++index)
+            averages[index] = -1;
+        return averages;
+    }
+};
