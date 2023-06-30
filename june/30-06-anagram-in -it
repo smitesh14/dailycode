@@ -1,0 +1,14 @@
+s=str(input())
+s1=str(input())
+l=[]
+l1=[]
+for i in s:
+    l.append(i)
+for i in s1:
+    l1.append(i)
+l.sort()
+l1.sort()
+if(l1==l):
+    print('yes')
+else:
+    print('no')
