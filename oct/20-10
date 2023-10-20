@@ -1,0 +1,17 @@
+class Solution(object):
+    def numIdenticalPairs(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        count = {}
+        result = 0
+        
+        for nuAm in nums:
+            if num in count:
+                result += count[num]
+                count[num] += 1
+            else:
+                count[num] = 1
+        
+        return result
